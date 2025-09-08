@@ -4,7 +4,11 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "target": "ESNext",
-
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "include": ["src", "styled-system"],
     // Modules
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

@@ -4,6 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
+    "prepare": "panda codegen",
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
@@ -12,12 +13,16 @@
   "license": "MIT",
   "devDependencies": {
     "@pandacss/dev": "^1.2.0",
+    "@park-ui/panda-preset": "^0.43.1",
+    "@types/styled-system": "^5.1.23",
     "solid-devtools": "^0.34.3",
     "typescript": "^5.7.2",
     "vite": "^7.1.4",
-    "vite-plugin-solid": "^2.11.8"
+    "vite-plugin-solid": "^2.11.8",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
+    "@ark-ui/solid": "^5.22.0",
     "solid-js": "^1.9.5"
   }
 }
