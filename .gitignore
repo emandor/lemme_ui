@@ -27,6 +27,7 @@ build/
 
 # Panda CSS generated files
 .panda/
+panda.config.ts
 
 # Environment files
 .env

@@ -25,7 +25,8 @@ export function useAuth(props?: UseAuthProps) {
 
   function loginWithGoogle() {
     const API = import.meta.env.VITE_API_URL || "";
-    const redirectUrl = `${API}/api/v1/auth/google/login")}`;
+    const FE = import.meta.env.VITE_FRONTEND_URL || window.location.origin;
+    const redirectUrl = `${API}/api/v1/auth/google/login?redirect=${encodeURIComponent(FE + "/auth/done")}`;
     window.location.href = redirectUrl;
   }
 
