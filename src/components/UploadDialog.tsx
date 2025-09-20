@@ -127,8 +127,8 @@ export default function UploadDialog(props: {
             />
           </Show>
           <div style="display:flex; gap:12px; margin-top:16px; justify-content:flex-end">
-            <Button onclick={onClose}>Cancel</Button>
-            <ButtonPrimary onclick={submit}>Lemme Process</ButtonPrimary>
+            <Button onClick={onClose}>Cancel</Button>
+            <ButtonPrimary onClick={submit}>Lemme Process</ButtonPrimary>
           </div>
         </Panel>
       </Dialog>
