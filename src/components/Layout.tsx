@@ -15,19 +15,19 @@ export const Layout = (props: RouteSectionProps) => {
   const nav = useNavigate();
   const [path, setPath] = createSignal(props.location.pathname);
 
-  const Page = styled("div", { base: { minH: "100dvh", bg: "bg" } });
+  const Page = styled("div", { base: { minH: "10dvh", bg: "bg" } });
   const Wrap = styled("div", {
     base: { maxW: "980px", mx: "auto", p: "5", display: "grid", gap: "12px" },
   });
 
-  const { ensureAuth, user } = useAuth({
+  const { ensureAuth } = useAuth({
     onAuthenticated() {
-      nav(homeRoute.path, { replace: true });
-      setPath(homeRoute.path);
+      // nav(homeRoute.path, { replace: true });
+      // setPath(homeRoute.path);
     },
     onUnauthenticated() {
-      nav(loginRoute.path, { replace: true });
-      setPath(loginRoute.path);
+      // nav(loginRoute.path, { replace: true });
+      // setPath(loginRoute.path);
     },
   });
 
@@ -54,7 +54,6 @@ export const Layout = (props: RouteSectionProps) => {
     <Page>
       {showTopBar() && <TopBar />}
       <Wrap style={{ padding: "1rem" }}>{props.children}</Wrap>
-
       <FooterWrapper>
         Made with ❤️ by
         <img src={Bot} alt="me" style={{ width: "35px" }} />
