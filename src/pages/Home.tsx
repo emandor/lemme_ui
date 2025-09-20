@@ -43,7 +43,6 @@ export default function Home() {
       display: "flex",
       justifyContent: "center",
       zIndex: 10,
-      // backdropFilter: "blur(10px)",
       boxShadow: "0 -2px 10px rgba(0, 0, 0, 0.1)",
       bg: "panel",
     },
@@ -51,18 +50,12 @@ export default function Home() {
 
   const ButtonFeedback = styled("button", {
     base: {
-      // position: "fixed",
-      // bottom: "80px",
-      // right: "20px",
-      // px: "4",
-      // py: "2",
       rounded: "md",
       border: "1px solid",
       borderColor: "line",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      // color: "black",
       cursor: "pointer",
       zIndex: 10,
       bg: "card",
@@ -78,7 +71,6 @@ export default function Home() {
   });
 
   const openNewTabFedback = () => {
-    // VITE_FEEDBACK_GFORMS_URL
     const url = import.meta.env.VITE_FEEDBACK_GFORMS_URL;
     window.open(url, "_blank");
   };
@@ -104,7 +96,7 @@ export default function Home() {
         <ButtonFeedback onClick={openNewTabFedback}>Feedback</ButtonFeedback>
       </BottomFloat>
       <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
-      <Show when={quizzes.items()?.length === 0}>
+      <Show when={(quizzes.items()?.length ?? 0) === 0}>
         <EmptyState>
           <img
             src={Bot}
