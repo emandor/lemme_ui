@@ -48,6 +48,46 @@ export default function Home() {
     },
   });
 
+  const ButtonFeedback = styled("button", {
+    base: {
+      // position: "fixed",
+      // bottom: "80px",
+      // right: "20px",
+      // px: "4",
+      // py: "2",
+      rounded: "md",
+      border: "1px solid",
+      borderColor: "line",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      // color: "black",
+      cursor: "pointer",
+      zIndex: 10,
+      bg: "card",
+      alignSelf: "center",
+      gap: "2",
+      px: "4",
+      py: "2",
+      // display: "flex",
+      // alignItems: "center",
+      // justifyContent: "center",
+      // color: "black",
+      // cursor: "pointer",
+      // width: "200px",
+      color: "text",
+      mt: "3",
+      mb: "3",
+      ml: "3",
+    },
+  });
+
+  const openNewTabFedback = () => {
+    // VITE_FEEDBACK_GFORMS_URL
+    const url = import.meta.env.VITE_FEEDBACK_GFORMS_URL;
+    window.open(url, "_blank");
+  };
+
   const onClose = () => {
     setOpenUpload(false);
   };
@@ -58,6 +98,7 @@ export default function Home() {
           <FiUpload size={20} />
           Upload Quiz
         </Upload>
+        <ButtonFeedback onClick={openNewTabFedback}>Feedback</ButtonFeedback>
       </BottomFloat>
       <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
       <UploadDialog open={openUpload()} onClose={onClose} />
