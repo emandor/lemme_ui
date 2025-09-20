@@ -4,6 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 import { createMemo, createSignal, onMount } from "solid-js";
 import { publicRoutes, routesByName } from "../routes";
 
+import Bot from "../assets/bot_3.png";
+
 import TopBar from "../components/TopBar";
 
 const homeRoute = routesByName["Home"];
@@ -35,17 +37,28 @@ export const Layout = (props: RouteSectionProps) => {
     [path()],
   );
 
+  const FooterWrapper = styled("div", {
+    base: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      mt: "10",
+      mb: "5",
+      color: "muted",
+      fontSize: "sm",
+    },
+  });
+
   return (
     <Page>
       {showTopBar() && <TopBar />}
       <Wrap style={{ padding: "1rem" }}>{props.children}</Wrap>
-      <footer
-        style={{
-          padding: "1rem",
-        }}
-      >
-        <p>&copy; 2025</p>
-      </footer>
+
+      <FooterWrapper>
+        Made with ❤️ by
+        <img src={Bot} alt="me" style={{ width: "35px" }} />
+      </FooterWrapper>
     </Page>
   );
 };

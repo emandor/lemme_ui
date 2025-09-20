@@ -1,9 +1,10 @@
-import { createSignal, For, onMount } from "solid-js";
+import { createSignal, For, onMount, Show } from "solid-js";
 import { styled } from "styled-system/jsx";
 import UploadDialog from "../components/UploadDialog";
 import QuizCard from "../components/QuizCard";
 import { quizzes } from "../store/quizzes";
 import { useUserRoom } from "~/hooks/useWebSocket";
+import Bot from "../assets/bot_3.png";
 
 import { FiUpload } from "solid-icons/fi";
 
@@ -69,12 +70,6 @@ export default function Home() {
       gap: "2",
       px: "4",
       py: "2",
-      // display: "flex",
-      // alignItems: "center",
-      // justifyContent: "center",
-      // color: "black",
-      // cursor: "pointer",
-      // width: "200px",
       color: "text",
       mt: "3",
       mb: "3",
@@ -87,6 +82,14 @@ export default function Home() {
     const url = import.meta.env.VITE_FEEDBACK_GFORMS_URL;
     window.open(url, "_blank");
   };
+
+  const EmptyState = styled("div", {
+    base: {
+      textAlign: "center",
+      color: "gray.500",
+      mt: "10",
+    },
+  });
 
   const onClose = () => {
     setOpenUpload(false);
@@ -101,6 +104,39 @@ export default function Home() {
         <ButtonFeedback onClick={openNewTabFedback}>Feedback</ButtonFeedback>
       </BottomFloat>
       <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
+      <Show when={quizzes.items().length === 0}>
+        <EmptyState>
+          <img
+            src={Bot}
+            alt="No quizzes"
+            style={{ width: "150px", margin: "0 auto" }}
+          />
+          <p style={{ "margin-top": "1rem" }}>
+            Hi! Glad you there!! let me introduce{" "}
+            <b style="color:var(--colors-brand)">Lemme Project</b>,{" "}
+          </p>
+          <p>
+            An AI-powered quiz solver that can help you answer multiple-choice
+            questions from your quizzes. Just upload a screenshot of your quiz,
+            and let the AI do the rest!
+          </p>
+
+          <p>
+            By default, you will have{" "}
+            <b style="color:var(--colors-brand)">10 coins</b>, which means you
+            can upload quizzes 10 times. But don't worry, you can ask me
+            whatsapp to add more coins! 😉
+          </p>
+
+          <hr style={{ "margin-top": "2rem", "margin-bottom": "2rem" }} />
+
+          <p style={{ "margin-top": "1rem" }}>
+            Click the <b style="color:var(--colors-brand)">Upload Quiz</b>{" "}
+            button below to get started 🚀
+          </p>
+        </EmptyState>
+      </Show>
+
       <UploadDialog open={openUpload()} onClose={onClose} />
     </>
   );
