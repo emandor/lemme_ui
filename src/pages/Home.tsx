@@ -13,14 +13,6 @@ export default function Home() {
   onMount(quizzes.loadInitial);
   useUserRoom();
 
-  const HomeWrapper = styled("div", {
-    base: {
-      display: "flex",
-      flexDirection: "column",
-      minHeight: "9dvh",
-    },
-  });
-
   const Upload = styled("button", {
     base: {
       alignSelf: "center",
@@ -87,29 +79,15 @@ export default function Home() {
     base: {
       textAlign: "center",
       color: "gray.500",
-      mt: "1",
+      mt: "10",
     },
   });
 
   const onClose = () => {
     setOpenUpload(false);
   };
-
-  const HeroWrapper = styled("div", {
-    base: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
-      // mt: "10",
-      // mb: "10",
-      // px: "4",
-      // lg: { flexDirection: "row" },
-    },
-  });
   return (
-    <HomeWrapper>
+    <>
       <BottomFloat>
         <Upload onClick={() => setOpenUpload(true)}>
           <FiUpload size={20} />
@@ -120,17 +98,15 @@ export default function Home() {
       <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
       <Show when={(quizzes.items()?.length ?? 0) === 0}>
         <EmptyState>
-          <HeroWrapper>
-            <img
-              src={Bot}
-              alt="No quizzes"
-              style={{ width: "150px", margin: "0 auto" }}
-            />
-            <p style={{ "margin-top": "1rem" }}>
-              Hi! Glad you there! let me introduce{" "}
-              <b style="color:var(--colors-brand)">Lemme Project</b>,{" "}
-            </p>
-          </HeroWrapper>
+          <img
+            src={Bot}
+            alt="No quizzes"
+            style={{ width: "150px", margin: "0 auto" }}
+          />
+          <p style={{ "margin-top": "1rem" }}>
+            Hi! Glad you there!! let me introduce{" "}
+            <b style="color:var(--colors-brand)">Lemme Project</b>,{" "}
+          </p>
           <p>
             An AI-powered quiz solver that can help you answer multiple-choice
             questions from your quizzes. Just upload a screenshot of your quiz,
@@ -140,13 +116,13 @@ export default function Home() {
           <p>
             By default, you will have{" "}
             <b style="color:var(--colors-brand)">10 coins</b>, which means you
-            can upload quizzes 10 times. But don't worry, you can ask me via
+            can upload quizzes 10 times. But don't worry, you can ask me
             whatsapp to add more coins! 😉
           </p>
 
-          <hr style={{ "margin-top": "0.5rem", "margin-bottom": "0.5rem" }} />
+          <hr style={{ "margin-top": "2rem", "margin-bottom": "2rem" }} />
 
-          <p style={{ "margin-top": "0.5rem" }}>
+          <p style={{ "margin-top": "1rem" }}>
             Click the <b style="color:var(--colors-brand)">Upload Quiz</b>{" "}
             button below to get started 🚀
           </p>
@@ -154,6 +130,6 @@ export default function Home() {
       </Show>
 
       <UploadDialog open={openUpload()} onClose={onClose} />
-    </HomeWrapper>
+    </>
   );
 }

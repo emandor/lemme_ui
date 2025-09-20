@@ -4,13 +4,7 @@ import logo from "../assets/logo.png";
 
 export default function Login() {
   const Box = styled("div", {
-    base: {
-      minH: "10dvh",
-      display: "grid",
-      placeItems: "center",
-      bg: "bg",
-      mt: "20dvh",
-    },
+    base: { minH: "100dvh", display: "grid", placeItems: "center", bg: "bg" },
   });
   const Panel = styled("div", {
     base: {
