@@ -115,12 +115,7 @@ export default function QuizCard(props: { q: Quiz }) {
     minute: "2-digit",
   });
 
-  const dateToLocal = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-  };
-
-  const createdDate = dateFormatter.format(dateToLocal(props.q.created_at));
+  const createdDate = dateFormatter.format(new Date(props.q.created_at));
 
   const OcrResultWrapper = styled("div", {
     base: {
