@@ -104,7 +104,7 @@ export default function Home() {
         <ButtonFeedback onClick={openNewTabFedback}>Feedback</ButtonFeedback>
       </BottomFloat>
       <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
-      <Show when={quizzes.items().length === 0}>
+      <Show when={quizzes.items()?.length === 0}>
         <EmptyState>
           <img
             src={Bot}
