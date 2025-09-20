@@ -2,6 +2,7 @@ import logo from "~/assets/logo.png";
 import { styled } from "styled-system/jsx";
 import { createMemo } from "solid-js";
 import { useAuth } from "~/hooks/useAuth";
+import { logout } from "~/services/api";
 
 export default function TopBar() {
   const { user } = useAuth();
@@ -78,7 +79,16 @@ export default function TopBar() {
     },
   });
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        window.location.href = "/login";
+      })
+      .catch((err) => {
+        console.error("Logout failed:", err);
+        window.location.href = "/login";
+      });
+  };
 
   return (
     <Bar>

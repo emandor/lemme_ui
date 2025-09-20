@@ -27,17 +27,38 @@ export default function Home() {
       justifyContent: "center",
       color: "black",
       cursor: "pointer",
+      width: "200px",
+      mt: "3",
+      mb: "3",
     },
   });
+
+  const BottomFloat = styled("div", {
+    base: {
+      position: "fixed",
+      bottom: "0",
+      left: "0",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      zIndex: 10,
+      // backdropFilter: "blur(10px)",
+      boxShadow: "0 -2px 10px rgba(0, 0, 0, 0.1)",
+      bg: "panel",
+    },
+  });
+
   const onClose = () => {
     setOpenUpload(false);
   };
   return (
     <>
-      <Upload onClick={() => setOpenUpload(true)}>
-        <FiUpload />
-        <span>Upload Screenshot</span>
-      </Upload>
+      <BottomFloat>
+        <Upload onClick={() => setOpenUpload(true)}>
+          <FiUpload size={20} />
+          Upload Quiz
+        </Upload>
+      </BottomFloat>
       <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
       <UploadDialog open={openUpload()} onClose={onClose} />
     </>

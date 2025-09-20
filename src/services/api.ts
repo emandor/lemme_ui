@@ -61,3 +61,4 @@ export type UserProfile = {
 };
 
 export const me = () => api.get("api/v1/me").json<UserProfile>();
+export const logout = () => api.post("api/v1/auth/logout").json();

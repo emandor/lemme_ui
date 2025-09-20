@@ -28,6 +28,51 @@ export default function UploadDialog(props: {
     },
   });
 
+  const Button = styled("button", {
+    base: {
+      px: "4",
+      py: "2",
+      rounded: "md",
+      border: "1px solid",
+      borderColor: "line",
+      cursor: "pointer",
+    },
+  });
+
+  const ButtonPrimary = styled(Button, {
+    base: { bg: "brand", color: "black", borderColor: "brand" },
+  });
+
+  const DropArea = styled("div", {
+    base: {
+      border: "2px dashed",
+      borderColor: "line",
+      rounded: "lg",
+      p: "6",
+      textAlign: "center",
+      color: "muted",
+      cursor: "pointer",
+    },
+  });
+
+  const Input = styled("input", {
+    base: { display: "none" },
+  });
+
+  const onDragOver = (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const onDrop = (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const f = e.dataTransfer?.files?.[0];
+    if (!f) return;
+    setFile(f);
+    setPreview(URL.createObjectURL(f));
+  };
+
   async function submit() {
     if (!file()) return;
     await uploadQuiz(file()!);
@@ -46,7 +91,21 @@ export default function UploadDialog(props: {
           <h3 style={{ "font-weight": 700, "margin-bottom": "12px" }}>
             Upload your screenshot
           </h3>
-          <input
+          <Show when={!preview()}>
+            <DropArea
+              onClick={() => {
+                document
+                  .querySelector<HTMLInputElement>("#file-input")
+                  ?.click();
+              }}
+              onDragOver={onDragOver}
+              onDrop={onDrop}
+            >
+              Click to select or drag and drop your image here
+            </DropArea>
+          </Show>
+          <Input
+            id="file-input"
             type="file"
             accept="image/*"
             onChange={(e) => {
@@ -68,18 +127,8 @@ export default function UploadDialog(props: {
             />
           </Show>
           <div style="display:flex; gap:12px; margin-top:16px; justify-content:flex-end">
-            <button
-              onclick={onClose}
-              style="padding:8px 14px; border:1px solid var(--colors-line); border-radius:10px;"
-            >
-              No, Change
-            </button>
-            <button
-              onclick={submit}
-              style="padding:8px 14px; background:var(--colors-success); color:black; border-radius:10px;"
-            >
-              Lemme Process
-            </button>
+            <Button onclick={onClose}>Cancel</Button>
+            <ButtonPrimary onclick={submit}>Lemme Process</ButtonPrimary>
           </div>
         </Panel>
       </Dialog>
