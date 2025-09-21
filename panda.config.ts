@@ -6,13 +6,6 @@ import amber from "@park-ui/panda-preset/colors/orange";
 import sand from "@park-ui/panda-preset/colors/sand";
 
 const globalCss = defineGlobalStyles({
-  //   'html, body': {
-  //     // color: 'gray.900',
-  //     // backgroundColor: 'gray.200',
-  // h: '100%',
-  //     w: '100%',
-  //     lineHeight: '1.5'
-  //   },
   body: {
     bg: {
       base: "white",
@@ -27,11 +20,11 @@ const preset = definePreset({
   theme: {
     tokens: {
       colors: {
-        brand: { value: "#f59e0b" }, // orange seperti logo “Lemme”
-        bg: { value: "#1f2937" }, // slate-800
-        panel: { value: "#111827" }, // gray-900
-        card: { value: "#0b1220" }, // gelap untuk kartu
-        line: { value: "#374151" }, // border
+        brand: { value: "#f59e0b" },
+        bg: { value: "#1f2937" },
+        panel: { value: "#111827" },
+        card: { value: "#0b1220" },
+        line: { value: "#374151" },
         success: { value: "#22c55e" },
         warning: { value: "#f59e0b" },
         error: { value: "#ef4444" },
@@ -47,7 +40,6 @@ export default defineConfig({
   globalCss,
   preflight: true,
 
-  // presets: [createPreset({ accentColor: amber, grayColor: sand, radius: 'sm' })],
   presets: [pandaBase, pandaPreset, preset],
 
   // Where to look for your css declarations

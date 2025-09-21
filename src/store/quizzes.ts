@@ -17,7 +17,7 @@ export async function loadInitial() {
   }
 
   setItems(map);
-  setOrder(ids); // urutan sesuai dari API
+  setOrder(ids); // most recent first
   setCursor(r.length > 0 ? r[r.length - 1].id : undefined);
 }
 

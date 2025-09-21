@@ -2,8 +2,8 @@ import ky from "ky";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 export const api = ky.create({
-  prefixUrl: API_URL, // akan hilang saat proxy dev
-  credentials: "include", // kirim cookie session
+  prefixUrl: API_URL,
+  credentials: "include", // send cookies
   timeout: 20000,
   hooks: {
     beforeRequest: [
@@ -15,7 +15,7 @@ export const api = ky.create({
     afterResponse: [
       async (_req, _opt, res) => {
         if (!res.ok && res.status === 401) {
-          // biarkan UI handle
+          // let UI handle unauthenticated
         }
       },
     ],

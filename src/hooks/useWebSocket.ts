@@ -50,7 +50,7 @@ export function useQuizRoom(quizID: string) {
             const quiz = quizzes.items[quizID];
             const currentAnswers = quiz?.answers || [];
 
-            // cari index jawaban dari source yang sama
+            // find existing answer from the same source
             const idx = currentAnswers.findIndex(
               (a) => a.source === data.source,
             );

@@ -46,6 +46,7 @@ export const Layout = (props: RouteSectionProps) => {
       justifyContent: "center",
       mt: "10",
       mb: "5",
+      pb: "100px",
       color: "muted",
       fontSize: "sm",
     },
