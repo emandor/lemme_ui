@@ -7,6 +7,7 @@ import { publicRoutes, routesByName } from "../routes";
 import Bot from "../assets/bot_3.png";
 
 import TopBar from "../components/TopBar";
+import { Toaster } from "./Toaster";
 
 const homeRoute = routesByName["Home"];
 const loginRoute = routesByName["Login"];
@@ -58,6 +59,7 @@ export const Layout = (props: RouteSectionProps) => {
         Made with ❤️ by
         <img src={Bot} alt="me" style={{ width: "35px" }} />
       </FooterWrapper>
+      <Toaster />
     </Page>
   );
 };

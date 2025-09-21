@@ -1,6 +1,7 @@
 import { createSignal, Show } from "solid-js";
 import { styled } from "styled-system/jsx";
 import { uploadQuiz } from "../services/api";
+import { showToast } from "./Toaster";
 
 export default function UploadDialog(props: {
   open: boolean;
@@ -40,9 +41,19 @@ export default function UploadDialog(props: {
   });
 
   const ButtonPrimary = styled(Button, {
-    base: { bg: "brand", color: "black", borderColor: "brand" },
+    base: {
+      bg: "brand",
+      color: "black",
+      borderColor: "brand",
+      _disabled: {
+        bg: "gray.600",
+        color: "gray.300",
+        borderColor: "gray.500",
+        cursor: "not-allowed",
+        opacity: 0.6,
+      },
+    },
   });
-
   const DropArea = styled("div", {
     base: {
       border: "2px dashed",
@@ -75,13 +86,25 @@ export default function UploadDialog(props: {
 
   async function submit() {
     if (!file()) return;
-    await uploadQuiz(file()!);
-    props.onClose();
+    try {
+      await uploadQuiz(file()!);
+      showToast("Great! 🚀 wait for processing...", "success");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      props.onClose();
+      reset();
+    } catch (err) {
+      console.error(err);
+      showToast("Oops, something went wrong. Please try again.", "error");
+    }
   }
-  const onClose = () => {
+  const reset = () => {
     setFile(null);
     setPreview(null);
+  };
+
+  const onClose = () => {
     props.onClose();
+    reset();
   };
 
   return (
@@ -128,7 +151,9 @@ export default function UploadDialog(props: {
           </Show>
           <div style="display:flex; gap:12px; margin-top:16px; justify-content:flex-end">
             <Button onClick={onClose}>Cancel</Button>
-            <ButtonPrimary onClick={submit}>Lemme Process</ButtonPrimary>
+            <ButtonPrimary onClick={submit} disabled={!file()}>
+              Lemme Process
+            </ButtonPrimary>
           </div>
         </Panel>
       </Dialog>
