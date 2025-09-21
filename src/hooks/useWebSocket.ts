@@ -6,18 +6,19 @@ import { Quiz } from "~/services/api";
 
 export function useUserRoom() {
   const { user } = useAuth();
+
   createEffect(() => {
-    if (!user()?.id) return;
     const userID = user()?.id;
+    if (!userID) return;
 
     const disconnect = connectWS(
       (data: WSPayloadEvents) => {
         if (data.event === "quiz.event.created") {
           const newQuizID = String(data.data?.quiz_id);
           quizzes.upsert(newQuizID, {
-            id: newQuizID,
             status: "pending",
             image_path: data.data?.image_path,
+            id: newQuizID,
           });
         }
       },
@@ -31,7 +32,7 @@ export function useUserRoom() {
     );
 
     onCleanup(disconnect);
-  }, [user()?.id]);
+  });
 }
 
 export function useQuizRoom(quizID: string) {
@@ -44,8 +45,9 @@ export function useQuizRoom(quizID: string) {
               ocr_text: data.data.ocr_text,
             });
             break;
-          case "quiz.event.answered":
-            const quiz = quizzes.items().find((q) => q.id === quizID);
+
+          case "quiz.event.answered": {
+            const quiz = quizzes.items[quizID];
             const currentAnswers = quiz?.answers || [];
 
             // cari index jawaban dari source yang sama
@@ -55,7 +57,6 @@ export function useQuizRoom(quizID: string) {
 
             let newAnswers: Quiz["answers"];
             if (idx >= 0) {
-              // update existing
               newAnswers = [...currentAnswers];
               newAnswers[idx] = {
                 source: data.source,
@@ -63,7 +64,6 @@ export function useQuizRoom(quizID: string) {
                 reason_text: data.data.reason,
               };
             } else {
-              // append new
               newAnswers = [
                 ...currentAnswers,
                 {
@@ -79,9 +79,12 @@ export function useQuizRoom(quizID: string) {
               status: "processing",
             });
             break;
+          }
+
           case "quiz.event.completed":
             quizzes.upsert(quizID, { status: "completed" });
             break;
+
           case "quiz.event.created":
             // ignore
             break;

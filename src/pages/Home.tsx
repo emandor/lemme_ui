@@ -102,12 +102,9 @@ export default function Home() {
       alignItems: "center",
       justifyContent: "center",
       textAlign: "center",
-      // mt: "10",
-      // mb: "10",
-      // px: "4",
-      // lg: { flexDirection: "row" },
     },
   });
+
   return (
     <HomeWrapper>
       <BottomFloat>
@@ -117,8 +114,10 @@ export default function Home() {
         </Upload>
         <ButtonFeedback onClick={openNewTabFedback}>Feedback</ButtonFeedback>
       </BottomFloat>
-      <For each={quizzes.items()}>{(q) => <QuizCard q={q} />}</For>
-      <Show when={(quizzes.items()?.length ?? 0) === 0}>
+      <For each={quizzes.order()}>
+        {(id) => <QuizCard q={quizzes.items[id]} />}
+      </For>
+      <Show when={Object.keys(quizzes.items).length === 0}>
         <EmptyState>
           <HeroWrapper>
             <img

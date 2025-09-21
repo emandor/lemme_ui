@@ -32,7 +32,7 @@ export type Quiz = {
     answer_text?: string;
     reason_text?: string;
   }[];
-  created_at: string;
+  created_at?: string;
   image_path?: string;
 };
 

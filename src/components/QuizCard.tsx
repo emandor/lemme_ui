@@ -7,6 +7,8 @@ import { useQuizRoom } from "~/hooks/useWebSocket";
 import { FaSolidChevronDown } from "solid-icons/fa";
 import { FaSolidChevronUp } from "solid-icons/fa";
 
+const BASE_URL = import.meta.env.VITE_API_URL || "";
+
 export default function QuizCard(props: { q: Quiz }) {
   const [open, setOpen] = createSignal(true);
   useQuizRoom(props.q.id);
@@ -20,10 +22,9 @@ export default function QuizCard(props: { q: Quiz }) {
     },
   });
 
-  const BASE_URL = import.meta.env.VITE_API_URL || "";
-  if (props.q.image_path && !props.q.image_path.startsWith("http")) {
-    props.q.image_path = `${BASE_URL}/${props.q.image_path}`;
-  }
+  const imageUrl = props.q.image_path?.startsWith("http")
+    ? props.q.image_path
+    : `${BASE_URL}/${props.q.image_path}`;
   const QuizWrapper = styled("div", {
     base: {
       display: "flex",
@@ -115,7 +116,9 @@ export default function QuizCard(props: { q: Quiz }) {
     minute: "2-digit",
   });
 
-  const createdDate = dateFormatter.format(new Date(props.q.created_at));
+  const createdDate = dateFormatter.format(
+    new Date(props.q.created_at || Date.now()),
+  );
 
   const OcrResultWrapper = styled("div", {
     base: {
@@ -212,7 +215,7 @@ export default function QuizCard(props: { q: Quiz }) {
       <Show when={open()}>
         <QuizWrapper>
           <Question>
-            <ScreenshootWrapper src={props.q.image_path} />
+            <ScreenshootWrapper src={imageUrl} />
             <AnswersWrapper>
               <HeadingAnswer>Soal - OCR</HeadingAnswer>
               <OcrResultWrapper>
